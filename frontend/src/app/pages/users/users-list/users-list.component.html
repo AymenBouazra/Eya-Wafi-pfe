@@ -1,0 +1,103 @@
+<app-header-body title="Gestion des Utilisateurs"></app-header-body>
+
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0 d-flex justify-content-between align-items-center">
+          <div class="d-flex align-items-center">
+            <h3 class="mb-0"><i class="fa fa-users text-primary text-md" aria-hidden="true"></i> Liste des Utilisateurs ({{users.length}}) {{userStatus == 'all' ?'Tout' : userStatus == 'active' ? 'Actifs' : 'Désactivés'}}</h3>
+            <div ngbDropdown >
+              <button class="btn btn-sm text-light" ngbDropdownToggle>
+                Selectionner 
+              </button>
+              <div ngbDropdownMenu class="dropdown-menu-right dropdown-menu-arrow">
+                <button ngbDropdownItem (click)="toggleActiveUsers('all')">
+                  <i class="fas fa-trash mr-2"></i> Tout
+                </button>
+                <button ngbDropdownItem (click)="toggleActiveUsers('active')">
+                  <i class="fas fa-trash mr-2"></i> Actifs
+                </button>
+                <button ngbDropdownItem (click)="toggleActiveUsers('inactive')">
+                  <i class="fas fa-trash mr-2"></i> Désactivés
+                </button>
+              </div>
+            </div>
+          </div>
+          <a class="btn btn-primary" routerLink="/users/add">
+            <i class="fa fa-user-plus" aria-hidden="true"></i> Ajouter
+          </a>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Nom</th>
+                <th scope="col">Email</th>
+                <th scope="col">Rôle</th>
+                <th scope="col">Manager</th>
+                <th scope="col">Département</th>
+                <th scope="col">Poste</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of users">
+                <th scope="row">
+                  <div class="media align-items-center">
+                    <div 
+                      [title]="user?.profile?.firstName.charAt(0).toUpperCase() + ' ' + user?.profile?.lastName.charAt(0).toUpperCase()"
+                      class="avatar rounded-circle mr-3 bg-primary text-white d-flex align-items-center justify-content-center"
+                    >
+                      {{ user?.profile?.firstName?.charAt(0).toUpperCase() }}{{ user?.profile?.lastName?.charAt(0).toUpperCase() }}
+                    </div>
+                    <div class="media-body">
+                      <span class="mb-0 text-sm">{{ user?.profile?.firstName }} {{ user?.profile?.lastName }}</span>
+                    </div>
+                  </div>
+                </th>
+                <td [title]="user?.email">{{ user?.email }}</td>
+                <td>
+                  <span class="badge" [ngClass]="{
+                    'badge-primary': user.role === 'hr',
+                    'badge-info': user.role === 'manager',
+                    'badge-success': user.role === 'employee'
+                  }">
+                    {{ getRoleLabel(user.role) }}
+                  </span>
+                </td>
+                <td>{{ user?.manager?.profile?.firstName }} {{ user?.manager?.profile?.lastName }}</td>
+                <td>{{ user?.profile?.department || '-' }}</td>
+                <td>{{ user?.profile?.position || '-' }}</td>
+                <td class="text-right">
+                 <div class="d-flex ">
+                  <button class="btn p-1" title="Modifier" [routerLink]="['/users/edit', user._id]">
+                    <i class="fas fa-edit mr-2 text-success text-md mx-auto"></i>
+                  </button>
+                  <button class="btn p-1" title="Supprimer" (click)="deleteUser(user._id)">
+                    <i class="fas fa-trash mr-2 text-danger text-md mx-auto"></i>
+                  </button>
+                 </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card-footer py-4" *ngIf="totalItems > itemsPerPage">
+          <nav aria-label="Page navigation">
+            <ngb-pagination 
+              [collectionSize]="totalItems" 
+              [(page)]="currentPage" 
+              [pageSize]="itemsPerPage"
+              (pageChange)="onPageChange($event)"
+              aria-label="Default pagination">
+                <ng-template ngbPaginationNumber="true" let-p> {{p}} </ng-template>
+            </ngb-pagination>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
