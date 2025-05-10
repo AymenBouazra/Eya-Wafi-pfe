@@ -1,0 +1,6 @@
+JWT_SECRET="secret"
+MONGODB_URI="mongodb://localhost:27017/EyaWefi"
+JWT_EXPIRES=7d
+EMAIL=********
+PASSWORD=********
+HOST='http://localhost:4200/#/'
