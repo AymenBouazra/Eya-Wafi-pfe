@@ -16,8 +16,10 @@ import { UsersListComponent } from 'src/app/pages/users/users-list/users-list.co
 import { AddUserComponent } from 'src/app/pages/users/add-user/add-user.component';
 import { UpdateUserComponent } from 'src/app/pages/users/update-user/update-user.component';
 import { HeaderBodyComponent } from 'src/app/components/header-body/header-body.component';
-// import { ToastrModule } from 'ngx-toastr';
-
+import { AddSkillComponent } from 'src/app/pages/skills/add-skill/add-skill.component';
+import { SkillsListComponent } from 'src/app/pages/skills/skills-list/skills-list.component';
+import { UpdateSkillComponent } from 'src/app/pages/skills/update-skill/update-skill.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 @NgModule({
   imports: [
     CommonModule,
@@ -27,7 +29,8 @@ import { HeaderBodyComponent } from 'src/app/components/header-body/header-body.
     HttpClientModule,
     NgbModule,
     ClipboardModule,
-    NgbPaginationModule
+    NgbPaginationModule,
+    NgSelectModule
   ],
   declarations: [
     DashboardComponent,
@@ -38,7 +41,10 @@ import { HeaderBodyComponent } from 'src/app/components/header-body/header-body.
     UsersListComponent,
     AddUserComponent,
     UpdateUserComponent,
-    HeaderBodyComponent
+    HeaderBodyComponent,
+    AddSkillComponent,
+    SkillsListComponent,
+    UpdateSkillComponent,
   ]
 })
 

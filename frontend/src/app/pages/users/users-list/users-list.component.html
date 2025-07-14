@@ -5,24 +5,12 @@
     <div class="col">
       <div class="card shadow">
         <div class="card-header border-0 d-flex justify-content-between align-items-center">
-          <div class="d-flex align-items-center">
-            <h3 class="mb-0"><i class="fa fa-users text-primary text-md" aria-hidden="true"></i> Liste des Utilisateurs ({{users.length}}) {{userStatus == 'all' ?'Tout' : userStatus == 'active' ? 'Actifs' : 'Désactivés'}}</h3>
-            <div ngbDropdown >
-              <button class="btn btn-sm text-light" ngbDropdownToggle>
-                Selectionner 
-              </button>
-              <div ngbDropdownMenu class="dropdown-menu-right dropdown-menu-arrow">
-                <button ngbDropdownItem (click)="toggleActiveUsers('all')">
-                  <i class="fas fa-trash mr-2"></i> Tout
-                </button>
-                <button ngbDropdownItem (click)="toggleActiveUsers('active')">
-                  <i class="fas fa-trash mr-2"></i> Actifs
-                </button>
-                <button ngbDropdownItem (click)="toggleActiveUsers('inactive')">
-                  <i class="fas fa-trash mr-2"></i> Désactivés
-                </button>
-              </div>
-            </div>
+          <div class="d-flex flex-column">
+            <h3 class="mb-0">
+              <i class="fa fa-users text-primary text-md" aria-hidden="true"></i>
+              Utilisateurs {{userStatus == 'all' ?'' : userStatus == 'active' ? 'Actifs'
+              : 'Désactivés'}} ({{totalItems}}) 
+            </h3>
           </div>
           <a class="btn btn-primary" routerLink="/users/add">
             <i class="fa fa-user-plus" aria-hidden="true"></i> Ajouter
@@ -46,11 +34,11 @@
               <tr *ngFor="let user of users">
                 <th scope="row">
                   <div class="media align-items-center">
-                    <div 
+                    <div
                       [title]="user?.profile?.firstName.charAt(0).toUpperCase() + ' ' + user?.profile?.lastName.charAt(0).toUpperCase()"
-                      class="avatar rounded-circle mr-3 bg-primary text-white d-flex align-items-center justify-content-center"
-                    >
-                      {{ user?.profile?.firstName?.charAt(0).toUpperCase() }}{{ user?.profile?.lastName?.charAt(0).toUpperCase() }}
+                      class="avatar rounded-circle mr-3 bg-primary text-white d-flex align-items-center justify-content-center">
+                      {{ user?.profile?.firstName?.charAt(0).toUpperCase() }}{{
+                      user?.profile?.lastName?.charAt(0).toUpperCase() }}
                     </div>
                     <div class="media-body">
                       <span class="mb-0 text-sm">{{ user?.profile?.firstName }} {{ user?.profile?.lastName }}</span>
@@ -71,14 +59,14 @@
                 <td>{{ user?.profile?.department || '-' }}</td>
                 <td>{{ user?.profile?.position || '-' }}</td>
                 <td class="text-right">
-                 <div class="d-flex ">
-                  <button class="btn p-1" title="Modifier" [routerLink]="['/users/edit', user._id]">
-                    <i class="fas fa-edit mr-2 text-success text-md mx-auto"></i>
-                  </button>
-                  <button class="btn p-1" title="Supprimer" (click)="deleteUser(user._id)">
-                    <i class="fas fa-trash mr-2 text-danger text-md mx-auto"></i>
-                  </button>
-                 </div>
+                  <div class="d-flex ">
+                    <button class="btn p-1" title="Modifier" [routerLink]="['/users/edit', user._id]">
+                      <i class="fas fa-edit mr-2 text-success text-md mx-auto"></i>
+                    </button>
+                    <button class="btn p-1" title="Supprimer" (click)="deleteUser(user._id)">
+                      <i class="fas fa-trash mr-2 text-danger text-md mx-auto"></i>
+                    </button>
+                  </div>
                 </td>
               </tr>
             </tbody>
@@ -87,13 +75,9 @@
 
         <div class="card-footer py-4" *ngIf="totalItems > itemsPerPage">
           <nav aria-label="Page navigation">
-            <ngb-pagination 
-              [collectionSize]="totalItems" 
-              [(page)]="currentPage" 
-              [pageSize]="itemsPerPage"
-              (pageChange)="onPageChange($event)"
-              aria-label="Default pagination">
-                <ng-template ngbPaginationNumber="true" let-p> {{p}} </ng-template>
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="currentPage" [pageSize]="itemsPerPage"
+              (pageChange)="onPageChange($event)" aria-label="Default pagination">
+              <ng-template ngbPaginationNumber="true" let-p> {{p}} </ng-template>
             </ngb-pagination>
           </nav>
         </div>

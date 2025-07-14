@@ -1,1 +1,108 @@
-<p>update-user works!</p>
+<app-header-body title="Modifier Utilisateur"></app-header-body>
+
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <h3 class="mb-0">Modifier Utilisateur</h3>
+        </div>
+        <form *ngIf="userForm" [formGroup]="userForm" (ngSubmit)="onSubmit()" class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Prénom</label>
+                <input formControlName="firstName" type="text" class="form-control"
+                       [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }">
+                <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                  <div *ngIf="f.firstName.errors.required">Prénom requis</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Nom</label>
+                <input formControlName="lastName" type="text" class="form-control"
+                       [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }">
+                <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                  <div *ngIf="f.lastName.errors.required">Nom requis</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Email</label>
+            <input formControlName="email" type="email" class="form-control"
+                   [ngClass]="{ 'is-invalid': submitted && f.email.errors }" [readonly]="true">
+            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+              <div *ngIf="f.email.errors.required">Email requis</div>
+              <div *ngIf="f.email.errors.email">Email invalide</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Rôle</label>
+            <select formControlName="role" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.role.errors }">
+              <option value="">Sélectionner un rôle</option>
+              <option value="employee">Employé</option>
+              <option value="manager">Manager</option>
+              <option value="hr">RH</option>
+            </select>
+            <div *ngIf="submitted && f.role.errors" class="invalid-feedback">
+              <div *ngIf="f.role.errors.required">Rôle requis</div>
+            </div>
+          </div>
+
+          <div class="form-group" *ngIf="f.role.value === 'employee'">
+            <label>Manager</label>
+            <ng-select [items]="managers"
+              bindValue="_id"
+              formControlName="manager"
+              [compareWith]="compareManagers"
+              (change)="onManagerChange($event)">
+              <ng-template ng-label-tmp let-item="item">
+                <div class="custom-label">
+                  <!-- <img [src]="item?.profile?.avatar" alt="Avatar" class="avatar"> -->
+                  {{ item?.profile?.firstName }} {{ item?.profile?.lastName }}
+                </div>
+              </ng-template>
+              <ng-template ng-option-tmp let-item="item">
+                <div class="custom-option">
+                  <!-- <img [src]="item?.profile?.avatar" alt="Avatar" class="avatar"> -->
+                  {{ item?.profile?.firstName }} {{ item?.profile?.lastName }}
+                </div>
+              </ng-template>
+            </ng-select>
+          </div>
+
+          <div class="form-group">
+            <label>Département</label>
+
+            <select formControlName="departement" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && userForm.get('departement').errors.required }">
+              <option *ngFor="let departement of departements" [value]="departement.value">
+                {{ departement?.label }}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Poste actuel</label>
+            <input formControlName="position" type="text" class="form-control">
+          </div>
+
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary mr-3">
+              Mettre à jour
+            </button>
+            <button type="button" (click)="onCancel()" class="btn btn-secondary">
+              Annuler
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

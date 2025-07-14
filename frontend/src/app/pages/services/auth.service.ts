@@ -1,26 +1,27 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
+  private baseUrl = environment.apiUrl + '/auth';
   constructor(private http: HttpClient) { }
 
   login(data: any) {
-    return this.http.post('http://localhost:4000/api/auth/login', data);
+    return this.http.post(`${this.baseUrl}/login`, data);
   }
   updateAndLogin(id: string, data: any) {
-    return this.http.put('http://localhost:4000/api/auth/updateAndLogin/' + id, data);
+    return this.http.put(`${this.baseUrl}/updateAndLogin/` + id, data);
   }
   checkEmail(data: any) {
-    return this.http.post('http://localhost:4000/api/auth/user', data);
+    return this.http.post(`${this.baseUrl}/user`, data);
   }
   forgotPassword(data: any) {
-    return this.http.post('http://localhost:4000/api/auth/forgotPassword', data);
+    return this.http.post(`${this.baseUrl}/forgotPassword`, data);
   }
   resetPassword(token: string, data: any) {
-    return this.http.put('http://localhost:4000/api/auth/resetPassword/' + token, data);
+    return this.http.put(`${this.baseUrl}/resetPassword/` + token, data);
   }
 }

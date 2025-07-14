@@ -68,12 +68,24 @@
 
           <div class="form-group">
             <label>Département</label>
-            <input formControlName="department" type="text" class="form-control">
+
+            <select formControlName="departement" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && userForm.get('departement').errors }">
+              <option *ngFor="let departement of departements" [value]="departement.value">
+                {{ departement?.label }}
+              </option>
+            </select>
+            <div *ngIf="submitted && userForm.get('departement').errors" class="invalid-feedback">
+              <div *ngIf="userForm.get('departement').errors">Département requis</div>
+              </div>
           </div>
 
           <div class="form-group">
             <label>Poste actuel</label>
-            <input formControlName="position" type="text" class="form-control">
+            <input formControlName="position"  [ngClass]="{ 'is-invalid': submitted && userForm.get('position').errors }" type="text" class="form-control">
+            <div *ngIf="submitted && userForm.get('position').errors" class="invalid-feedback">
+              <div *ngIf="userForm.get('position').errors.required">Poste requis</div>
+            </div>
           </div>
 
           <div class="text-center">

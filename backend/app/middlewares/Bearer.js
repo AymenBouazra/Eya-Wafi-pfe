@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 passport.use(
     new BearerStrategy((token, done) => {
       try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const decoded = jwt.verify(token, process.env.JWT_SECRET ||'your_jwt_secret');
         const user = {
           id: decoded.id,
           role: decoded.role, 

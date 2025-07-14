@@ -44,7 +44,7 @@ exports.updateUserAndLogin = async (req, res) => {
   }
   const hash = await bcrypt.hash(password, 10);
   await User.findByIdAndUpdate(id, {$set: { password: hash, isActive: true} }, { new: true });
-  const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES });
+  const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET||'your_jwt_secret', { expiresIn: process.env.JWT_EXPIRES });
   res.status(200).json({ token });
  } catch (error) {
   res.status(500).json({ message: 'Erreur serveur', error });
@@ -63,9 +63,10 @@ exports.login = async (req, res) => {
 //   if (!isMatch) {
 //    return res.status(400).json({ message: 'Identifiants invalides' });
 //   }
-  const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES });
+  const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET ||'your_jwt_secret', { expiresIn: process.env.JWT_EXPIRES || '7d' });
   res.status(200).json({ token, role: user.role, message: 'Authentification réussie' });
  } catch (error) {
+     console.log(error)
   res.status(500).json({ message: 'Erreur serveur', error });
  }
 };
@@ -89,12 +90,12 @@ exports.forgotPassword = async (req, res) => {
          });
 
          await transporter.sendMail({
-             from: `<Smart Work> ${process.env.EMAIL}`,
+             from: `<Eya Wafi> ${process.env.EMAIL}`,
              to: email,
              subject: "Mot de passe oublié",
              html: ` 
          <h2>Réinitialiser le mot de passe</h2><br>
-         <a href='${process.env.HOST}reset-password/${resetToken}'>Lien de réinitialisation du mot de passe</a>
+         <a href='${process.env.HOST||'http://localhost:4200/'}reset-password/${resetToken}'>Lien de réinitialisation du mot de passe</a>
          <b style='color:red'>Ce lien expirera après 15 minutes </b>
          `,
          });

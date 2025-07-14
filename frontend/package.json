@@ -27,6 +27,7 @@
     "@angular/router": "^14.2.0",
     "@auth0/angular-jwt": "^5.2.0",
     "@ng-bootstrap/ng-bootstrap": "12.0.1",
+    "@ng-select/ng-select": "^9.1.0",
     "@ngneat/hot-toast": "^4.1.1",
     "@ngneat/overview": "^3.0.0",
     "@ngrx/effects": "^14.3.3",

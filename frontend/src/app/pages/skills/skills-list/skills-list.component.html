@@ -1,1 +1,62 @@
-<p>skills-list works!</p>
+<app-header-body title="Gestion des compétences"></app-header-body>
+
+<div class="container-fluid mt--7">
+ <div class="row">
+  <div class="col">
+   <div class="card shadow">
+    <div class="card-header border-0 d-flex justify-content-between align-items-center">
+     <div class="d-flex justify-content-between">
+      <h3 class="mb-0">
+       <i class="fa fa-users text-primary text-md" aria-hidden="true"></i>
+       Liste des compétences
+      </h3>
+     </div>
+     <a class="btn btn-primary p-2" routerLink="/skills/add">
+      <i class="fa fa-user-plus" aria-hidden="true"></i> Ajouter
+     </a>
+    </div>
+    <div class="table-responsive">
+     <table class="table align-items-center table-flush">
+     <thead class="thead-light">
+      <tr>
+       <th scope="col">Titre</th>
+       <th scope="col">Description</th>
+       <th scope="col"></th>
+      </tr>
+     </thead>
+     <tbody>
+      <tr *ngFor="let skill of skills">
+       <th scope="row">
+        <div class="media align-items-center">
+         {{skill.title}}
+        </div>
+       </th>
+       <td>
+        <div class="align-items-center">
+         {{skill.description}}
+        </div>
+       </td>
+       <td>
+        <div class="d-flex justify-content-between">
+          <i class="fa fa-edit text-success fa-lg" aria-hidden="true" routerLink="/skills/edit/{{skill._id}}"></i>
+          <i class="fa fa-trash text-danger fa-lg" aria-hidden="true" (click)="deleteSkill(skill._id)"></i>
+        </div>
+       </td>
+      </tr>
+     </tbody>
+    </table>
+    </div>
+
+    
+   </div>
+   <div class="card-footer py-4" *ngIf="totalItems > itemsPerPage">
+    <nav aria-label="Page navigation">
+     <ngb-pagination [collectionSize]="totalItems" [(page)]="currentPage" [pageSize]="itemsPerPage"
+      (pageChange)="onPageChange($event)" aria-label="Default pagination">
+      <ng-template ngbPaginationNumber="true" let-p> {{p}} </ng-template>
+     </ngb-pagination>
+    </nav>
+   </div>
+  </div>
+ </div>
+</div>

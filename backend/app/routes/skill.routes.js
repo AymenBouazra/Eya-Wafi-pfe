@@ -6,13 +6,17 @@ const roleMiddleware = require('../middlewares/role.middleware');
 
 router.post('/', 
   authMiddleware.verifyToken, 
-  roleMiddleware.checkRole(['hr']), 
+  roleMiddleware.checkRole(['hr','manager']), 
   skillController.createSkill
 );
 
 router.get('/', 
   authMiddleware.verifyToken, 
   skillController.getAllSkills
+);
+router.get('/paginated', 
+  authMiddleware.verifyToken, 
+  skillController.getAllSkillsPaginated
 );
 
 router.get('/:id', 
@@ -22,13 +26,13 @@ router.get('/:id',
 
 router.put('/:id', 
   authMiddleware.verifyToken, 
-  roleMiddleware.checkRole(['hr']), 
+  roleMiddleware.checkRole(['hr','manager']), 
   skillController.updateSkill
 );
 
 router.delete('/:id', 
   authMiddleware.verifyToken, 
-  roleMiddleware.checkRole(['hr']), 
+  roleMiddleware.checkRole(['hr','manager']), 
   skillController.deleteSkill
 );
 

@@ -8,12 +8,9 @@ const userSchema = new mongoose.Schema({
   profile: {
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
-    department: String,
+    departement: String,
     position: String,
-    skills: [{
-      skill: { type: mongoose.Schema.Types.ObjectId, ref: 'Skill' },
-      level: { type: Number, min: 1, max: 5, default: 1 }
-    }],
+    skills: [{type: mongoose.Schema.Types.ObjectId, ref: 'Skill' }],
     aspirations: [String],
     experience: [{
       title: String,
@@ -23,7 +20,6 @@ const userSchema = new mongoose.Schema({
     }]
   },
   manager: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  isActive: { type: Boolean, default: true },
   lastLogin: Date,
 },
 {

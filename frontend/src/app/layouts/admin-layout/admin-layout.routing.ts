@@ -7,6 +7,9 @@ import { TablesComponent } from '../../pages/tables/tables.component';
 import { UsersListComponent } from 'src/app/pages/users/users-list/users-list.component';
 import { AddUserComponent } from 'src/app/pages/users/add-user/add-user.component';
 import { UpdateUserComponent } from 'src/app/pages/users/update-user/update-user.component';
+import { SkillsListComponent } from 'src/app/pages/skills/skills-list/skills-list.component';
+import { AddSkillComponent } from 'src/app/pages/skills/add-skill/add-skill.component';
+import { UpdateSkillComponent } from 'src/app/pages/skills/update-skill/update-skill.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
@@ -16,4 +19,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'users', component: UsersListComponent },
     { path: 'users/add', component: AddUserComponent },
     { path: 'users/edit/:id', component: UpdateUserComponent },
+    { path: 'skills', component: SkillsListComponent },
+    { path: 'skills/add', component: AddSkillComponent },
+    { path: 'skills/edit/:id', component: UpdateSkillComponent },
 ];

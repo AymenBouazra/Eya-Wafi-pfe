@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 5000;
 
 dotenv.config();
 require('./app/config/database')();
@@ -46,15 +46,4 @@ app.use(errorHandler);
 // Start the server
 app.listen(port, () => {
  console.log(`Server is running on port ${port}`);
-});
-
-process.on('unhandledRejection', (err) => {
- console.error('Unhandled Rejection:', err);
- server.close(() => process.exit(1));
-});
-
-// Handle uncaught exceptions
-process.on('uncaughtException', (err) => {
- console.error('Uncaught Exception:', err);
- server.close(() => process.exit(1));
 });
