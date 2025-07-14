@@ -34,7 +34,7 @@ export class UsersListComponent implements OnInit {
 
   loadUsers(status: string) {
     this.loading = true;
-    this.userService.getUsersPaginated('all', this.currentPage, this.itemsPerPage, status).subscribe({
+    this.userService.getUsersPaginated('all', this.currentPage, this.itemsPerPage).subscribe({
       next: (res: any) => {
         this.users = res.data;
 

@@ -1,0 +1,42 @@
+<app-header-body title="Ajouter un talent"></app-header-body>
+
+
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <h3 class="mb-0">Ajouter une compétence</h3>
+        </div>
+        <form *ngIf="skillForm" [formGroup]="skillForm" (ngSubmit)="onSubmit()" class="card-body">
+          <div class="form-group">
+            <label for="title">Titre</label>
+            <input type="text" id="title" formControlName="title"
+              [ngClass]="{ 'is-invalid': isSubmitted && skillForm.get('title').errors }" class="form-control"
+              placeholder="Titre de la compétence">
+            <div *ngIf="isSubmitted && skillForm.get('title').errors?.required" class="text-danger">
+              <small *ngIf="skillForm.get('title').errors?.required">Le titre est requis.</small>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" formControlName="description"
+              [ngClass]="{ 'is-invalid': isSubmitted && skillForm.get('description').errors }" class="form-control"
+              placeholder="Description de la compétence"></textarea>
+            <div *ngIf="isSubmitted && skillForm.get('description').errors" class="text-danger">
+              <small *ngIf="skillForm.get('description').errors?.required">La description est requise.</small>
+              <small *ngIf="skillForm.get('description').errors?.minlength">La description doit contenir au moins 3 caractères.</small>
+              <small *ngIf="skillForm.get('description').errors?.maxlength">La description ne doit pas contenir plus de 300 caractères.</small>
+            </div>
+          </div>
+
+          <button type="submit" [disabled]="isLoading" class="btn btn-primary">{{isLoading ? 'Enregistrement...' :
+            'Enregistrer'}}</button>
+          <button type="button" class="btn btn-secondary" routerLink="/skills">Annuler</button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>

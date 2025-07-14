@@ -2,12 +2,11 @@
   <!-- Mask -->
   <span class="mask bg-gradient-success opacity-8"></span>
   <!-- Header container -->
-  <div class="container-fluid d-flex align-items-center">
+  <div class="container-fluid">
     <div class="row">
       <div class="col-lg-7 col-md-10">
-        <h1 class="display-2 text-white">Hello Jesse</h1>
-        <p class="text-white mt-0 mb-5">This is your profile page. You can see the progress you've made with your work and manage your projects or assigned tasks</p>
-        <a href="#!" class="btn btn-info">Edit profile</a>
+        <h1 class="display-2 text-white">Bonjour {{ userForm.get('firstName')?.value.toUpperCase() ||"" }}</h1>
+        <p class="text-white mt-0 mb-5">C'est ici que vous pouvez modifier vos informations personnelles et gérer vos projets</p>
       </div>
     </div>
   </div>
@@ -25,47 +24,21 @@
             </div>
           </div>
         </div>
-        <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
-          <div class="d-flex justify-content-between">
-            <a href="javascript:void(0)" class="btn btn-sm btn-info mr-4">Connect</a>
-            <a href="javascript:void(0)" class="btn btn-sm btn-default float-right">Message</a>
-          </div>
+        <div class="card-header text-center border-0 pt-8 pt-md-5 pb-0 pb-md-5">
+          
         </div>
         <div class="card-body pt-0 pt-md-4">
-          <div class="row">
-            <div class="col">
-              <div class="card-profile-stats d-flex justify-content-center mt-md-5">
-                <div>
-                  <span class="heading">22</span>
-                  <span class="description">Friends</span>
-                </div>
-                <div>
-                  <span class="heading">10</span>
-                  <span class="description">Photos</span>
-                </div>
-                <div>
-                  <span class="heading">89</span>
-                  <span class="description">Comments</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="text-center">
+         
+          <div class="text-center mt-md-5">
             <h3>
-              Jessica Jones<span class="font-weight-light">, 27</span>
+              {{ userForm.get('firstName').value }} {{ userForm.get('lastName').value }}<span class="font-weight-light"></span>
             </h3>
             <div class="h5 font-weight-300">
-              <i class="ni location_pin mr-2"></i>Bucharest, Romania
+              <i class="ni location_pin mr-2"></i>{{ userForm.get('departement').value }}
             </div>
             <div class="h5 mt-4">
-              <i class="ni business_briefcase-24 mr-2"></i>Solution Manager - Creative Tim Officer
+              <i class="ni business_briefcase-24 mr-2"></i>{{ userForm.get('position').value }}
             </div>
-            <div>
-              <i class="ni education_hat mr-2"></i>University of Computer Science
-            </div>
-            <hr class="my-4" />
-            <p>Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music.</p>
-            <a href="javascript:void(0)">Show more</a>
           </div>
         </div>
       </div>
@@ -83,20 +56,24 @@
           </div>
         </div>
         <div class="card-body">
-          <form>
+          <form *ngIf="userForm" [formGroup]="userForm" (ngSubmit)="onSubmit()">
             <h6 class="heading-small text-muted mb-4">User information</h6>
             <div class="pl-lg-4">
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" for="input-username">Username</label>
-                    <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value="lucky.jesse">
+                    <label class="form-control-label" for="input-email">Email address</label>
+                    <input type="email" id="input-email" class="form-control form-control-alternative" formControlName="email">
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" for="input-email">Email address</label>
-                    <input type="email" id="input-email" class="form-control form-control-alternative" placeholder="jesse@example.com">
+                    <label class="form-control-label" for="input-role">Role</label>
+                    <select id="input-role" class="form-control form-control-alternative" formControlName="role">
+                      <option value="employee">Employee</option>
+                      <option value="manager">Manager</option>
+                      <option value="hr">HR</option>
+                    </select>
                   </div>
                 </div>
               </div>
@@ -104,59 +81,114 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-first-name">First name</label>
-                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="First name" value="Lucky">
+                    <input type="text" id="input-first-name" class="form-control form-control-alternative" formControlName="firstName">
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-last-name">Last name</label>
-                    <input type="text" id="input-last-name" class="form-control form-control-alternative" placeholder="Last name" value="Jesse">
+                    <input type="text" id="input-last-name" class="form-control form-control-alternative" formControlName="lastName">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-departement">Departement</label>
+                    <input type="text" id="input-departement" class="form-control form-control-alternative" formControlName="departement">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-position">Position</label>
+                    <input type="text" id="input-position" class="form-control form-control-alternative" formControlName="position">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-manager">Manager</label>
+                    <ng-select [items]="managers"
+                            bindValue="_id"
+                            formControlName="manager"
+                            [compareWith]="compareManagers"
+                            (change)="onManagerChange($event)">
+                            <ng-template ng-label-tmp let-item="item">
+                              <div class="custom-label">
+                                <!-- <img [src]="item?.profile?.avatar" alt="Avatar" class="avatar"> -->
+                                {{ item?.profile?.firstName }} {{ item?.profile?.lastName }}
+                              </div>  
+                              
+                            </ng-template>
+                            <ng-template ng-option-tmp let-item="item">
+                              <div class="custom-option">
+                                <!-- <img [src]="item?.profile?.avatar" alt="Avatar" class="avatar"> -->
+                                {{ item?.profile?.firstName }} {{ item?.profile?.lastName }}
+                              </div>  
+                            </ng-template>
+                  </ng-select>
                   </div>
                 </div>
               </div>
             </div>
             <hr class="my-4" />
-            <!-- Address -->
-            <h6 class="heading-small text-muted mb-4">Contact information</h6>
+            <!-- Skills -->
+            <h6 class="heading-small text-muted mb-4">Skills</h6>
             <div class="pl-lg-4">
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label class="form-control-label" for="input-address">Address</label>
-                    <input id="input-address" class="form-control form-control-alternative" placeholder="Home Address" value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09" type="text">
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-4">
-                  <div class="form-group">
-                    <label class="form-control-label" for="input-city">City</label>
-                    <input type="text" id="input-city" class="form-control form-control-alternative" placeholder="City" value="New York">
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="form-group">
-                    <label class="form-control-label" for="input-country">Country</label>
-                    <input type="text" id="input-country" class="form-control form-control-alternative" placeholder="Country" value="United States">
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="form-group">
-                    <label class="form-control-label" for="input-country">Postal code</label>
-                    <input type="number" id="input-postal-code" class="form-control form-control-alternative" placeholder="Postal code">
-                  </div>
-                </div>
-              </div>
+              <ng-select [items]="skills"
+                bindLabel="title"
+                bindValue="_id"
+                [multiple]="true"
+                [closeOnSelect]="false"
+                formControlName="skills"
+                [compareWith]="compareSkills"
+                >
+              </ng-select>
             </div>
             <hr class="my-4" />
-            <!-- Description -->
-            <h6 class="heading-small text-muted mb-4">About me</h6>
+            <!-- Experience -->
+            <h6 class="heading-small text-muted mb-4">Experience</h6>
             <div class="pl-lg-4">
-              <div class="form-group">
-                <label>About Me</label>
-                <textarea rows="4" class="form-control form-control-alternative" placeholder="A few words about you ...">A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</textarea>
+              <div formArrayName="experience">
+                <div class="position-relative border border-1 p-2 mb-3 rounded bg-white" *ngFor="let exp of experienceControls; let i = index" [formGroupName]="i">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-title-{{i}}">Titre</label>
+                        <input type="text" id="input-title-{{i}}" class="form-control form-control-alternative" formControlName="title">
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-company-{{i}}">Société</label>
+                        <input type="text" id="input-company-{{i}}" class="form-control form-control-alternative" formControlName="company">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mb-2">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-duration-{{i}}">Durée</label>
+                        <input type="text" id="input-duration-{{i}}" class="form-control form-control-alternative" formControlName="duration">
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-description-{{i}}">Description</label>
+                        <textarea id="input-description-{{i}}" class="form-control form-control-alternative" formControlName="description"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <button class="btn btn-sm btn-danger position-absolute bottom-2 right-2 mt-3" type="button" (click)="removeExperience(i)">
+                    <i class="fa fa-trash text-white cursor-pointer float-right"></i>
+                  </button>
+                </div>
               </div>
+              <button type="button" class="btn btn-sm btn-primary mt-3" (click)="addExperience()">Ajouter une expérience</button>
             </div>
+            <hr class="my-4" />
+            <button type="submit" class="btn btn-primary float-right">Enregistrer</button>
           </form>
         </div>
       </div>

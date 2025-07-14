@@ -1,11 +1,10 @@
 const User = require('../models/user');
 const Skill = require('../models/skill');
 
-exports.getAllUsers = async (req, res) => {    
+exports.getAllUsersPaginated = async (req, res) => {    
   try {
-    const { role,status, department, page = 1, limit = 10 } = req.query;
-    let filter = { isActive: true };
-    
+    const { role, departement, page = 1, limit = 10 } = req.query;
+    let filter = {};
     if (role) {
       if (role ==='manager') {
         filter.role = 'manager' 
@@ -17,21 +16,13 @@ exports.getAllUsers = async (req, res) => {
         filter.role = 'hr' 
       };
     }
-    if (department) filter['profile.department'] = department;
-    if (status) {
-      if (status === 'active') {
-        filter.isActive = true;
-      } else if (status === 'inactive') {
-        filter.isActive = false;
-      } 
-    }
+    if (departement) filter['profile.departement'] = departement;
 
     const pageNumber = parseInt(page);
     const limitNumber = parseInt(limit);
     const skip = (pageNumber - 1) * limitNumber;
 
-    const total = await User.countDocuments(filter);
-    console.log({filter});
+    const total = await User.countDocuments();
     
     const users = await User.find(filter)
       .select('-password')
@@ -52,8 +43,19 @@ exports.getAllUsers = async (req, res) => {
       }
     });
   } catch (error) {
-    console.log(error);
-    
+    res.status(500).json({ error: error.message });
+  }
+};
+exports.getAllUsers = async (req, res) => {
+  try {
+    const { role } = req.query;
+    const filter = {};
+    if(role) {
+      filter.role = role;
+    }
+    const users = await User.find(filter)
+    res.json(users);
+  } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
@@ -88,8 +90,6 @@ exports.addUser = async (req, res) => {
     await newUser.save();
     res.status(201).json({ message: 'Utilisateur enregistré avec succès' });
   } catch (error) {
-    console.log(error);
-    
     res.status(500).json({ message: 'Erreur serveur', error });
   }
 };
@@ -112,24 +112,6 @@ exports.updateUser = async (req, res) => {
   }
 };
 
-exports.deactivateUser = async (req, res) => {
-  try {
-    const user = await User.findByIdAndUpdate(
-      req.params.id, 
-      { isActive: false }, 
-      { new: true }
-    ).select('-password');
-
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-
-    res.json({ message: 'User deactivated successfully' });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
-
 exports.addUserSkill = async (req, res) => {
   try {
     const { skillId, level } = req.body;
@@ -144,7 +126,6 @@ exports.addUserSkill = async (req, res) => {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    // Check if skill already exists
     const existingSkillIndex = user.profile.skills.findIndex(s => 
       s.skill.toString() === skillId
     );
@@ -182,9 +163,22 @@ exports.removeUserSkill = async (req, res) => {
     await user.save();
     const updatedUser = await User.findById(user._id)
       .select('-password')
-      .populate('profile.skills.skill');
+      .populate('profile.skills');
 
     res.json(updatedUser);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.deleteUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(404).json({ message: 'Utilisateur non trouvé' });
+    }
+    await User.findByIdAndDelete(req.params.id);
+    res.json({ message: 'User deleted successfully' });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -194,13 +188,13 @@ exports.getCurrentUser = async (req, res) => {
     try {
       const user = await User.findById(req.userId)
         .select('-password')
-        .populate('profile.skills.skill')
-        .populate('manager');
-  
+        .populate('profile.skills')
+        .populate('manager')
+
       if (!user) {
-        return res.status(404).json({ error: 'User not found' });
+        return res.status(404).json({ message: 'Utilisateur non trouvé' });
       }
-  
+      
       res.json(user);
     } catch (error) {
       res.status(500).json({ error: error.message });

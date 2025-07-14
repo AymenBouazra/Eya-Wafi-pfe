@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { HotToastService } from '@ngneat/hot-toast';
 
@@ -14,7 +14,12 @@ export class AddUserComponent implements OnInit {
   editMode = false;
   submitted = false;
   managers: any[] = [];
-
+  departements: any[] = [
+    { value: 'Client Success', label: 'Client Success' },
+    { value: 'Support', label: 'Support' },
+    { value: 'Recherche et développement', label: 'Recherche et développement' },
+    { value: 'Nouvelle technologie & BI', label: 'Nouvelle technologie & BI' },
+  ];
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
@@ -35,9 +40,9 @@ export class AddUserComponent implements OnInit {
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       role: ['', Validators.required],
-      manager: [''],
-      department: [''],
-      position: ['']
+      manager: ['', Validators.required],
+      departement: ['', Validators.required],
+      position: ['', Validators.required]
     });
 
     this.userForm.get('role').valueChanges.subscribe(role => {
@@ -51,7 +56,7 @@ export class AddUserComponent implements OnInit {
   }
 
   loadManagers(): void {
-    this.userService.getUsersPaginated('manager', 1, 10, 'active').subscribe({
+    this.userService.getUsersPaginated('manager', 1, 10).subscribe({
       next: (managers: any) => this.managers = managers.data,
       error: (err) => console.error('Failed to load managers', err)
     });
@@ -66,7 +71,7 @@ export class AddUserComponent implements OnInit {
           email: user.email,
           role: user.role,
           manager: user.manager,
-          department: user.profile.department,
+          departement: user.profile.departement,
           position: user.profile.position
         });
       },
@@ -87,7 +92,7 @@ export class AddUserComponent implements OnInit {
       profile: {
         firstName: this.userForm.value.firstName,
         lastName: this.userForm.value.lastName,
-        department: this.userForm.value.department,
+        departement: this.userForm.value.departement,
         position: this.userForm.value.position
       },
       manager: this.userForm.value.manager || null

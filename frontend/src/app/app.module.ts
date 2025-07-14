@@ -15,8 +15,6 @@ import { ComponentsModule } from './components/components.module';
 import { CommonModule, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { HotToastModule } from '@ngneat/hot-toast';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
-import { SkillFormComponent } from './pages/skills/skill-form/skill-form.component';
-import { SkillsListComponent } from './pages/skills/skills-list/skills-list.component';
 import { TokenInterceptorService } from './providers/token-interceptor.service';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -37,7 +35,8 @@ import { authReducer } from './store/reducers/auth.reducer';
     AppRoutingModule,
     HotToastModule.forRoot({
       dismissible: true,
-      autoClose: false,
+      autoClose: true,
+      position: 'top-right',
     })
   ],
   declarations: [
@@ -45,8 +44,6 @@ import { authReducer } from './store/reducers/auth.reducer';
     AdminLayoutComponent,
     AuthLayoutComponent,
     ResetPasswordComponent,
-    SkillFormComponent,
-    SkillsListComponent
   ],
   providers: [{
     provide: LocationStrategy,
