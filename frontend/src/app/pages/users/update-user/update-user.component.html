@@ -58,23 +58,24 @@
           <div class="form-group" *ngIf="f.role.value === 'employee'">
             <label>Manager</label>
             <ng-select [items]="managers"
-              bindValue="_id"
-              formControlName="manager"
-              [compareWith]="compareManagers"
-              (change)="onManagerChange($event)">
-              <ng-template ng-label-tmp let-item="item">
-                <div class="custom-label">
-                  <!-- <img [src]="item?.profile?.avatar" alt="Avatar" class="avatar"> -->
-                  {{ item?.profile?.firstName }} {{ item?.profile?.lastName }}
-                </div>
-              </ng-template>
-              <ng-template ng-option-tmp let-item="item">
-                <div class="custom-option">
-                  <!-- <img [src]="item?.profile?.avatar" alt="Avatar" class="avatar"> -->
-                  {{ item?.profile?.firstName }} {{ item?.profile?.lastName }}
-                </div>
-              </ng-template>
-            </ng-select>
+                            bindValue="_id"
+                            formControlName="manager"
+                            [compareWith]="compareManagers"
+                            (change)="onManagerChange($event)">
+                            <ng-template ng-label-tmp let-item="item">
+                              <div class="custom-label">
+                                <!-- <img [src]="item?.profile?.avatar" alt="Avatar" class="avatar"> -->
+                                {{ item?.profile?.firstName }} {{ item?.profile?.lastName }}
+                              </div>
+
+                            </ng-template>
+                            <ng-template ng-option-tmp let-item="item">
+                              <div class="custom-option">
+                                <!-- <img [src]="item?.profile?.avatar" alt="Avatar" class="avatar"> -->
+                                {{ item?.profile?.firstName }} {{ item?.profile?.lastName }}
+                              </div>
+                            </ng-template>
+                  </ng-select>
           </div>
 
           <div class="form-group">
