@@ -47,7 +47,7 @@
                 </th>
                 <td [title]="user?.email">{{ user?.email }}</td>
                 <td>
-                  <span class="badge" [ngClass]="{
+                  <span class="badge text-uppercase text-xs" [ngClass]="{
                     'badge-primary': user.role === 'hr',
                     'badge-info': user.role === 'manager',
                     'badge-success': user.role === 'employee'
@@ -56,7 +56,7 @@
                   </span>
                 </td>
                 <td>{{ user?.manager?.profile?.firstName }} {{ user?.manager?.profile?.lastName }}</td>
-                <td>{{ user?.profile?.department || '-' }}</td>
+                <td>{{ user?.profile?.departement || '-' }}</td>
                 <td>{{ user?.profile?.position || '-' }}</td>
                 <td class="text-right">
                   <div class="d-flex ">

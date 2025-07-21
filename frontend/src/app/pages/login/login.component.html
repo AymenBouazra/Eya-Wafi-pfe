@@ -35,8 +35,11 @@
         </div> -->
         <div class="card-body px-lg-5 py-lg-5">
           <div class="text-center text-muted mb-4">
+            <img src="./assets/img/brand/Procareer.png" class="navbar-brand-img w-75" alt="...">
+            <hr>
             <h1>Se connecter</h1>
           </div>
+
           <form [formGroup]="loginForm" role="form" (ngSubmit)="submit()">
             <!-- Email field - shown when user doesn't exist -->
             <div *ngIf="!userExists">

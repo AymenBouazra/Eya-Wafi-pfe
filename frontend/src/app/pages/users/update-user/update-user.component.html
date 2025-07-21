@@ -82,7 +82,7 @@
             <label>Département</label>
 
             <select formControlName="departement" class="form-control"
-                    [ngClass]="{ 'is-invalid': submitted && userForm.get('departement').errors.required }">
+                    [ngClass]="{ 'is-invalid': submitted && userForm.get('departement').errors }">
               <option *ngFor="let departement of departements" [value]="departement.value">
                 {{ departement?.label }}
               </option>
