@@ -20,6 +20,9 @@ import { AddSkillComponent } from 'src/app/pages/skills/add-skill/add-skill.comp
 import { SkillsListComponent } from 'src/app/pages/skills/skills-list/skills-list.component';
 import { UpdateSkillComponent } from 'src/app/pages/skills/update-skill/update-skill.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { AddJobComponent } from 'src/app/pages/jobs/add-job/add-job.component';
+import { ListJobComponent } from 'src/app/pages/jobs/list-job/list-job.component';
+import { EditJobComponent } from 'src/app/pages/jobs/edit-job/edit-job.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -45,6 +48,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
     AddSkillComponent,
     SkillsListComponent,
     UpdateSkillComponent,
+    AddJobComponent,
+    ListJobComponent,
+    EditJobComponent
   ]
 })
 

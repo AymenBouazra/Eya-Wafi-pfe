@@ -9,21 +9,20 @@ declare interface RouteInfo {
   show: boolean;
 }
 export const ROUTES: RouteInfo[] = [
-  { path: '/dashboard', title: 'Dashboard', icon: 'ni-tv-2 text-primary', class: '', show: true },
-  { path: '/icons', title: 'Icons', icon: 'ni-planet text-blue', class: '', show: true },
+  { path: '/dashboard', title: 'Dashboard', icon: 'ni-tv-2 text-dark', class: '', show: true },
+  { path: '/icons', title: 'Icons', icon: 'ni-planet text-dark', class: '', show: true },
   // { path: '/maps', title: 'Maps',  icon:'ni-pin-3 text-orange', class: '' },
-  { path: '/user-profile', title: 'Profil utilisateur', icon: 'ni-single-02 text-yellow', class: '', show: true },
-  { path: '/tables', title: 'Tables', icon: 'ni-bullet-list-67 text-red', class: '', show: true },
-  { path: '/users', title: 'Utilisateurs', icon: 'fa fa-users text-green', class: '', show: true },
-  { path: '/users/add', title: 'Ajouter un utilisateur', icon: 'fa fa-plus text-info', class: '', show: false },
-  { path: '/users/edit', title: 'Modifier un utilisateur', icon: 'fa fa-edit text-success', class: '', show: false },
-  { path: '/skills', title: 'Compétences', icon: 'fa fa-user-tie text-pink', class: '', show: true },
-  { path: '/skills/add', title: 'Ajouter une compétence', icon: 'fa fa-plus text-info', class: '', show: false },
-  { path: '/skills/edit', title: 'Modifier une compétence', icon: 'fa fa-edit text-success', class: '', show: false },
-  { path: '/jobs', title: 'Métiers', icon: 'fa fa-briefcase text-purple', class: '', show: true },
-  { path: '/skills/add', title: 'Ajouter une compétence', icon: 'fa fa-plus text-info', class: '', show: false },
-  { path: '/skills/edit', title: 'Modifier une compétence', icon: 'fa fa-edit text-success', class: '', show: false },
-
+  { path: '/user-profile', title: 'Profil utilisateur', icon: 'ni-single-02 text-dark', class: '', show: true },
+  { path: '/tables', title: 'Tables', icon: 'ni-bullet-list-67 text-dark', class: '', show: true },
+  { path: '/users', title: 'Utilisateurs', icon: 'fa fa-users text-dark', class: '', show: true },
+  { path: '/users/add', title: 'Ajouter un utilisateur', icon: 'fa fa-plus text-dark', class: '', show: false },
+  { path: '/users/edit', title: 'Modifier un utilisateur', icon: 'fa fa-edit text-dark', class: '', show: false },
+  { path: '/skills', title: 'Compétences', icon: 'fa fa-user-tie text-dark', class: '', show: true },
+  { path: '/skills/add', title: 'Ajouter une compétence', icon: 'fa fa-plus text-dark', class: '', show: false },
+  { path: '/skills/edit', title: 'Modifier une compétence', icon: 'fa fa-edit text-dark', class: '', show: false },
+  { path: '/jobs', title: 'Liste des offres de travail', icon: 'fa fa-briefcase text-dark', class: '', show: true },
+  { path: '/jobs/add', title: 'Ajouter une offre de travail', icon: 'fa fa-plus text-dark', class: '', show: false },
+  { path: '/jobs/edit', title: 'Modifier une offre de travail', icon: 'fa fa-edit text-dark', class: '', show: false },
 
 
   // { path: '/jobs', title: 'Métiers', icon: 'fa fa-briefcase text-purple', class: '' },

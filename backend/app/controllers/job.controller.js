@@ -3,18 +3,16 @@ const Skill = require('../models/skill');
 
 exports.createJob = async (req, res) => {
   try {
-    const { title, department, description, requirements, requiredSkills } = req.body;
+    const { title, departement, description, requirements, requiredSkills } = req.body;
     
-    // Verify all skills exist
-    const skillIds = requiredSkills.map(s => s.skill);
-    const skills = await Skill.find({ _id: { $in: skillIds } });
-    if (skills.length !== skillIds.length) {
+    const skills = await Skill.find({ _id: { $in: requiredSkills } });
+    if (skills.length !== requiredSkills.length) {
       return res.status(400).json({ error: 'One or more skills not found' });
     }
 
     const job = new Job({
       title,
-      department,
+      departement,
       description,
       requirements,
       requiredSkills,
@@ -28,6 +26,39 @@ exports.createJob = async (req, res) => {
   }
 };
 
+exports.getAllJobsPaginated = async (req, res) => {
+  try {
+    const { page = 1, limit = 10 } = req.query;
+    const filter = {};
+    const pageNumber = parseInt(page);
+    const limitNumber = parseInt(limit);
+    const skip = (pageNumber - 1) * limitNumber;
+    const total = await Job.countDocuments();
+
+    const jobs = await Job.find(filter)
+      .populate('requiredSkills')
+      .populate('postedBy', 'email profile.firstName profile.lastName')
+      .skip(skip)
+      .limit(limitNumber);
+
+    res.json({
+      data: jobs,
+      pagination: {
+        total,
+        page: pageNumber,
+        limit: limitNumber,
+        totalPages: Math.ceil(total / limitNumber),
+        hasNextPage: pageNumber * limitNumber < total,
+        hasPreviousPage: pageNumber > 1
+      }
+    })
+  } catch (error) {
+    console.log(error);
+    
+    res.status(500).json({ error: error.message });
+  }
+};
+
 exports.getAllJobs = async (req, res) => {
   try {
     const { department, isActive } = req.query;
@@ -37,11 +68,13 @@ exports.getAllJobs = async (req, res) => {
     if (isActive !== undefined) filter.isActive = isActive;
 
     const jobs = await Job.find(filter)
-      .populate('requiredSkills.skill')
+      .populate('requiredSkills')
       .populate('postedBy', 'email profile.firstName profile.lastName');
 
     res.json(jobs);
   } catch (error) {
+    console.log(error);
+    
     res.status(500).json({ error: error.message });
   }
 };
@@ -49,8 +82,7 @@ exports.getAllJobs = async (req, res) => {
 exports.getJobById = async (req, res) => {
   try {
     const job = await Job.findById(req.params.id)
-      .populate('requiredSkills.skill')
-      .populate('postedBy', 'email profile.firstName profile.lastName');
+      .populate('requiredSkills')
 
     if (!job) {
       return res.status(404).json({ error: 'Job not found' });
@@ -68,7 +100,7 @@ exports.updateJob = async (req, res) => {
       req.body, 
       { new: true, runValidators: true }
     )
-    .populate('requiredSkills.skill');
+    .populate('requiredSkills');
 
     if (!job) {
       return res.status(404).json({ error: 'Job not found' });

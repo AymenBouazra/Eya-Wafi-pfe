@@ -22,7 +22,7 @@ export class SkillsListComponent implements OnInit {
 
   loadSkills() {
     this.isLoading = true;
-    this.skillService.getSkillsPaginated(this.currentPage, this.itemsPerPage,).subscribe(
+    this.skillService.getSkillsPaginated(this.currentPage, this.itemsPerPage).subscribe(
       {
         next: (res) => {
           this.skills = res.data;

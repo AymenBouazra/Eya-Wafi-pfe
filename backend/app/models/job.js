@@ -5,10 +5,7 @@ const jobSchema = new mongoose.Schema({
   departement: { type: String, required: true },
   description: { type: String, required: true },
   requirements: String,
-  requiredSkills: [{
-    skill: { type: mongoose.Schema.Types.ObjectId, ref: 'Skill' },
-    minLevel: { type: Number, min: 1, max: 5, default: 3 }
-  }],
+  requiredSkills: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Skill' }],
   isActive: { type: Boolean, default: true },
   postedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 },

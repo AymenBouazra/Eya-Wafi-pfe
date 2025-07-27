@@ -6,7 +6,7 @@ const roleMiddleware = require('../middlewares/role.middleware');
 
 router.post('/', 
   authMiddleware.verifyToken, 
-  roleMiddleware.checkRole(['hr']), 
+  roleMiddleware.checkRole(['hr','manager']), 
   jobController.createJob
 );
 
@@ -14,15 +14,20 @@ router.get('/',
   authMiddleware.verifyToken, 
   jobController.getAllJobs
 );
+router.get('/paginated', 
+  authMiddleware.verifyToken, 
+  jobController.getAllJobsPaginated
+);
 
 router.get('/:id', 
   authMiddleware.verifyToken, 
+  roleMiddleware.checkRole(['hr','manager']), 
   jobController.getJobById
 );
 
 router.put('/:id', 
   authMiddleware.verifyToken, 
-  roleMiddleware.checkRole(['hr']), 
+  roleMiddleware.checkRole(['hr','manager']), 
   jobController.updateJob
 );
 

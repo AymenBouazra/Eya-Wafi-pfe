@@ -10,6 +10,9 @@ import { UpdateUserComponent } from 'src/app/pages/users/update-user/update-user
 import { SkillsListComponent } from 'src/app/pages/skills/skills-list/skills-list.component';
 import { AddSkillComponent } from 'src/app/pages/skills/add-skill/add-skill.component';
 import { UpdateSkillComponent } from 'src/app/pages/skills/update-skill/update-skill.component';
+import { ListJobComponent } from 'src/app/pages/jobs/list-job/list-job.component';
+import { AddJobComponent } from 'src/app/pages/jobs/add-job/add-job.component';
+import { EditJobComponent } from 'src/app/pages/jobs/edit-job/edit-job.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
@@ -22,4 +25,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'skills', component: SkillsListComponent, title: 'Liste des talents' },
     { path: 'skills/add', component: AddSkillComponent, title: 'Ajouter un talent' },
     { path: 'skills/edit/:id', component: UpdateSkillComponent, title: 'Modifier un talent' },
+    { path: 'jobs', component: ListJobComponent, title: 'Liste des offres d\'emploi' },
+    { path: 'jobs/add', component: AddJobComponent, title: 'Ajouter une offre d\'emploi' },
+    { path: 'jobs/edit/:id', component: EditJobComponent, title: 'Modifier une offre d\'emploi' }
 ];
