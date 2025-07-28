@@ -54,9 +54,18 @@
         </div>
        </td>
        <td>
-        <div class="d-flex justify-content-between">
-          <i class="fa fa-edit text-success fa-lg" aria-hidden="true" routerLink="/jobs/edit/{{job._id}}"></i>
-          <i class="fa fa-trash text-danger fa-lg" aria-hidden="true" (click)="deleteJob(job._id)"></i>
+        <div ngbDropdown placement="bottom-right">
+          <a class="btn btn-sm btn-icon-only text-light"  ngbDropdownToggle>
+            <i class="fas fa-ellipsis-v"></i>
+          </a>
+          <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
+            <a class="dropdown-item" [routerLink]="['/jobs/edit', job._id]">
+              <i class="fas fa-edit"></i> Modifier
+            </a>
+            <a class="dropdown-item" (click)="deleteJob(job._id)">
+              <i class="fas fa-trash-alt"></i> Supprimer
+            </a>
+          </div>
         </div>
        </td>
       </tr>

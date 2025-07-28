@@ -6,7 +6,7 @@ const roleMiddleware = require('../middlewares/role.middleware');
 
 router.post('/', 
   authMiddleware.verifyToken, 
-  roleMiddleware.checkRole(['hr']), 
+  roleMiddleware.checkRole(['hr', 'manager']), 
   trainingController.createTraining
 );
 
@@ -15,6 +15,12 @@ router.get('/',
   trainingController.getAllTrainings
 );
 
+router.get('/paginated', 
+  authMiddleware.verifyToken, 
+  trainingController.getAllTrainingsPaginated
+);
+
+
 router.get('/:id', 
   authMiddleware.verifyToken, 
   trainingController.getTrainingById
@@ -22,13 +28,13 @@ router.get('/:id',
 
 router.put('/:id', 
   authMiddleware.verifyToken, 
-  roleMiddleware.checkRole(['hr']), 
+  roleMiddleware.checkRole(['hr', 'manager']), 
   trainingController.updateTraining
 );
 
 router.patch('/:id/toggle-status', 
   authMiddleware.verifyToken, 
-  roleMiddleware.checkRole(['hr']), 
+  roleMiddleware.checkRole(['hr', 'manager']), 
   trainingController.toggleTrainingStatus
 );
 

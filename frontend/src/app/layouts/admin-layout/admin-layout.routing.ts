@@ -13,6 +13,9 @@ import { UpdateSkillComponent } from 'src/app/pages/skills/update-skill/update-s
 import { ListJobComponent } from 'src/app/pages/jobs/list-job/list-job.component';
 import { AddJobComponent } from 'src/app/pages/jobs/add-job/add-job.component';
 import { EditJobComponent } from 'src/app/pages/jobs/edit-job/edit-job.component';
+import { ListTrainingComponent } from 'src/app/pages/trainings/list-training/list-training.component';
+import { AddTrainingComponent } from 'src/app/pages/trainings/add-training/add-training.component';
+import { EditTrainingComponent } from 'src/app/pages/trainings/edit-training/edit-training.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
@@ -27,5 +30,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'skills/edit/:id', component: UpdateSkillComponent, title: 'Modifier un talent' },
     { path: 'jobs', component: ListJobComponent, title: 'Liste des offres d\'emploi' },
     { path: 'jobs/add', component: AddJobComponent, title: 'Ajouter une offre d\'emploi' },
-    { path: 'jobs/edit/:id', component: EditJobComponent, title: 'Modifier une offre d\'emploi' }
+    { path: 'jobs/edit/:id', component: EditJobComponent, title: 'Modifier une offre d\'emploi' },
+    { path: 'trainings', component: ListTrainingComponent, title: 'Liste des formations' },
+    { path: 'trainings/add', component: AddTrainingComponent, title: 'Ajouter une formation' },
+    { path: 'trainings/edit/:id', component: EditTrainingComponent, title: 'Modifier une formation' }
 ];

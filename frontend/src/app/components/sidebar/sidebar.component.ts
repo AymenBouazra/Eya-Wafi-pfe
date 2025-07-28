@@ -23,7 +23,9 @@ export const ROUTES: RouteInfo[] = [
   { path: '/jobs', title: 'Liste des offres de travail', icon: 'fa fa-briefcase text-dark', class: '', show: true },
   { path: '/jobs/add', title: 'Ajouter une offre de travail', icon: 'fa fa-plus text-dark', class: '', show: false },
   { path: '/jobs/edit', title: 'Modifier une offre de travail', icon: 'fa fa-edit text-dark', class: '', show: false },
-
+  { path: '/trainings', title: 'Liste des formations', icon: 'fa fa-graduation-cap text-dark', class: '', show: true },
+  { path: '/trainings/add', title: 'Ajouter une formation', icon: 'fa fa-plus text-dark', class: '', show: false },
+  { path: '/trainings/edit', title: 'Modifier une formation', icon: 'fa fa-edit text-dark', class: '', show: false },
 
   // { path: '/jobs', title: 'Métiers', icon: 'fa fa-briefcase text-purple', class: '' },
   // { path: '/mobility', title: 'Mobilité', icon: 'fa fa-car text-orange', class: '' },

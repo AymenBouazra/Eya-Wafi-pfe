@@ -1,0 +1,105 @@
+<app-header-body title="Modifier une formation"></app-header-body>
+
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <h3 class="mb-0">Modifier une formation</h3>
+        </div>
+        <form *ngIf="trainingForm" [formGroup]="trainingForm" (ngSubmit)="onSubmit()" class="card-body">
+          <div class="form-group">
+            <label for="title">Titre</label>
+            <input type="text" id="title" formControlName="title"
+              [ngClass]="{ 'is-invalid': submitted && f.title.errors }" class="form-control"
+              placeholder="Titre de la formation">
+            <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
+              <small *ngIf="f.title.errors.required">Le titre est requis.</small>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" formControlName="description"
+              [ngClass]="{ 'is-invalid': submitted && f.description.errors }" class="form-control"
+              placeholder="Description de la formation"></textarea>
+            <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+              <small *ngIf="f.description.errors.required">La description est requise.</small>
+            </div>
+            <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+              <small *ngIf="f.description.errors.minlength">La description doit contenir au moins 3 caractères.</small>
+            </div>
+            <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+              <small *ngIf="f.description.errors.maxlength">La description ne doit pas dépasser 300 caractères.</small>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="category">Catégorie</label>
+            <input type="text" id="category" formControlName="category"
+              [ngClass]="{ 'is-invalid': submitted && f.category.errors }" class="form-control"
+              placeholder="Catégorie">
+            <div *ngIf="submitted && f.category.errors" class="invalid-feedback">
+              <small *ngIf="f.category.errors.required">La catégorie est requise.</small>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="duration">Durée (heures)</label>
+            <input type="number" id="duration" formControlName="duration"
+              [ngClass]="{ 'is-invalid': submitted && f.duration.errors }" class="form-control"
+              placeholder="Durée en heures">
+            <div *ngIf="submitted && f.duration.errors" class="invalid-feedback">
+              <small *ngIf="f.duration.errors.required">La durée est requise.</small>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="provider">Fournisseur</label>
+            <input type="text" id="provider" formControlName="provider"
+              class="form-control"
+              placeholder="Fournisseur de la formation">
+          </div>
+
+          <div class="form-group">
+            <label for="targetSkills">Compétences visées</label>
+            <div class="pl-lg-4">
+              <ng-select [items]="skillsList"
+                bindLabel="title"
+                bindValue="_id"
+                [multiple]="true"
+                [closeOnSelect]="false"
+                formControlName="targetSkills"
+                [compareWith]="compareSkills"
+                >
+              </ng-select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="recommendedFor">Métiers recommandés</label>
+            <div class="pl-lg-4">
+              <ng-select [items]="jobsList"
+                bindLabel="title"
+                bindValue="_id"
+                [multiple]="true"
+                [closeOnSelect]="false"
+                formControlName="recommendedFor"
+                [compareWith]="compareJobs"
+                >
+              </ng-select>
+            </div>
+          </div>
+
+          <div class="form-group form-check">
+            <input type="checkbox" id="isActive" formControlName="isActive" class="form-check-input">
+            <label for="isActive" class="form-check-label">Actif</label>
+          </div>
+
+          <button type="submit" [disabled]="isLoading" class="btn btn-primary">{{isLoading ? 'Enregistrement...' : 'Enregistrer'}}</button>
+          <button type="button" class="btn btn-secondary" routerLink="/trainings">Annuler</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
