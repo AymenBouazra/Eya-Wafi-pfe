@@ -26,6 +26,8 @@ import { EditJobComponent } from 'src/app/pages/jobs/edit-job/edit-job.component
 import { AddTrainingComponent } from 'src/app/pages/trainings/add-training/add-training.component';
 import { EditTrainingComponent } from 'src/app/pages/trainings/edit-training/edit-training.component';
 import { ListTrainingComponent } from 'src/app/pages/trainings/list-training/list-training.component';
+import { JobsEmployeeListComponent } from 'src/app/pages/mobility-requests/jobs-employee-list/jobs-employee-list.component';
+import { DashboardListComponent } from 'src/app/pages/mobility-requests/dashboard-list/dashboard-list.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -56,7 +58,9 @@ import { ListTrainingComponent } from 'src/app/pages/trainings/list-training/lis
     EditJobComponent,
     AddTrainingComponent,
     EditTrainingComponent,
-    ListTrainingComponent
+    ListTrainingComponent,
+    JobsEmployeeListComponent,
+    DashboardListComponent
   ]
 })
 

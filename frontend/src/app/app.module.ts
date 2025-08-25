@@ -19,7 +19,6 @@ import { TokenInterceptorService } from './providers/token-interceptor.service';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { authReducer } from './store/reducers/auth.reducer';
-
 @NgModule({
   imports: [
     StoreModule.forRoot({ auth: authReducer }),

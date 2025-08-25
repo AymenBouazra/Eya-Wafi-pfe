@@ -14,7 +14,12 @@ const mobilityRequestSchema = new mongoose.Schema({
     enum: ['manager_approval', 'hr_approval', 'completed', 'rejected'],
     default: 'manager_approval'
   },
-  managerApproval: {
+  departureManagerApproval: {
+    approved: Boolean,
+    comment: String,
+    date: Date
+  },
+  hisManagerApproval: {
     approved: Boolean,
     comment: String,
     date: Date

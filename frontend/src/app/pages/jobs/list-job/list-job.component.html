@@ -40,7 +40,7 @@
        </td>
        <td>
         <div class="align-items-center">
-         {{job.description}}
+         {{job.description.length > 60 ? (job.description | slice:0:60) + '...' : job.description}}
         </div>
        </td>
        <td>

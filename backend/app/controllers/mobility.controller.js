@@ -112,7 +112,7 @@ exports.managerApproval = async (req, res) => {
       return res.status(403).json({ error: 'You are not authorized to approve this request' });
     }
 
-    request.managerApproval = {
+    request.hisManagerApproval = {
       approved,
       comment,
       date: new Date()

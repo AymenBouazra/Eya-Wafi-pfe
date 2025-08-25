@@ -9,11 +9,11 @@ declare interface RouteInfo {
   show: boolean;
 }
 export const ROUTES: RouteInfo[] = [
-  { path: '/dashboard', title: 'Dashboard', icon: 'ni-tv-2 text-dark', class: '', show: true },
-  { path: '/icons', title: 'Icons', icon: 'ni-planet text-dark', class: '', show: true },
+  { path: '/dashboard', title: 'Dashboard', icon: 'ni-tv-2 text-dark', class: '', show: false },
+  { path: '/icons', title: 'Icons', icon: 'ni-planet text-dark', class: '', show: false },
   // { path: '/maps', title: 'Maps',  icon:'ni-pin-3 text-orange', class: '' },
-  { path: '/user-profile', title: 'Profil utilisateur', icon: 'ni-single-02 text-dark', class: '', show: true },
-  { path: '/tables', title: 'Tables', icon: 'ni-bullet-list-67 text-dark', class: '', show: true },
+  { path: '/user-profile', title: 'Profil utilisateur', icon: 'ni-single-02 text-dark', class: '', show: false },
+  { path: '/tables', title: 'Tables', icon: 'ni-bullet-list-67 text-dark', class: '', show: false },
   { path: '/users', title: 'Utilisateurs', icon: 'fa fa-users text-dark', class: '', show: true },
   { path: '/users/add', title: 'Ajouter un utilisateur', icon: 'fa fa-plus text-dark', class: '', show: false },
   { path: '/users/edit', title: 'Modifier un utilisateur', icon: 'fa fa-edit text-dark', class: '', show: false },
@@ -26,7 +26,7 @@ export const ROUTES: RouteInfo[] = [
   { path: '/trainings', title: 'Liste des formations', icon: 'fa fa-graduation-cap text-dark', class: '', show: true },
   { path: '/trainings/add', title: 'Ajouter une formation', icon: 'fa fa-plus text-dark', class: '', show: false },
   { path: '/trainings/edit', title: 'Modifier une formation', icon: 'fa fa-edit text-dark', class: '', show: false },
-
+  { path: '/job-marketplace', title: 'Marché de l\'emploi', icon: 'fa fa-briefcase text-dark', class: '', show: true },
   // { path: '/jobs', title: 'Métiers', icon: 'fa fa-briefcase text-purple', class: '' },
   // { path: '/mobility', title: 'Mobilité', icon: 'fa fa-car text-orange', class: '' },
   // { path: '/trainings', title: 'Formations', icon: 'fa fa-graduation-cap text-cyan', class: '' },

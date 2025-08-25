@@ -16,6 +16,7 @@ import { EditJobComponent } from 'src/app/pages/jobs/edit-job/edit-job.component
 import { ListTrainingComponent } from 'src/app/pages/trainings/list-training/list-training.component';
 import { AddTrainingComponent } from 'src/app/pages/trainings/add-training/add-training.component';
 import { EditTrainingComponent } from 'src/app/pages/trainings/edit-training/edit-training.component';
+import { JobsEmployeeListComponent } from 'src/app/pages/mobility-requests/jobs-employee-list/jobs-employee-list.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
@@ -33,5 +34,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'jobs/edit/:id', component: EditJobComponent, title: 'Modifier une offre d\'emploi' },
     { path: 'trainings', component: ListTrainingComponent, title: 'Liste des formations' },
     { path: 'trainings/add', component: AddTrainingComponent, title: 'Ajouter une formation' },
-    { path: 'trainings/edit/:id', component: EditTrainingComponent, title: 'Modifier une formation' }
+    { path: 'trainings/edit/:id', component: EditTrainingComponent, title: 'Modifier une formation' },
+    { path: 'job-marketplace', component: JobsEmployeeListComponent, title: 'Marché de l\'emploi' }
 ];
