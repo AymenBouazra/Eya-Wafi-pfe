@@ -24,7 +24,7 @@
               <img alt="Image placeholder" src="assets/img/theme/team-4-800x800.jpg">
             </span>
             <div class="media-body ml-2 d-none d-lg-block">
-              <span class="mb-0 text-sm  font-weight-bold">Eya Wafi</span>
+              <span class="mb-0 text-sm font-weight-bold text-uppercase">{{currentUser?.profile?.firstName}} {{currentUser?.profile?.lastName}}</span>
             </div>
           </div>
         </a>
@@ -39,7 +39,7 @@
           <div class="dropdown-divider"></div>
           <a [routerLink]="['/login']" class="dropdown-item">
             <i class="ni ni-user-run"></i>
-            <span>Logout</span>
+            <span>Déconnexion</span>
           </a>
         </div>
       </li>

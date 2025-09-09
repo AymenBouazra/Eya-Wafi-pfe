@@ -6,15 +6,19 @@ import { environment } from 'src/environments/environment';
  providedIn: 'root'
 })
 export class MobilityRequestService {
- private baseUrl = environment.apiUrl + '/mobility-requests';
+ private baseUrl = environment.apiUrl + '/mobility';
  constructor(private http: HttpClient) { }
 
  createMobilityRequest(data: any): any {
   return this.http.post(`${this.baseUrl}`, data);
  }
 
- getMobilityRequests(): any {
-  return this.http.get(`${this.baseUrl}`);
+ getMobilityRequestsByManager(page: number, itemsPerPage: number): any {
+  return this.http.get(`${this.baseUrl}/manager?page=${page}&itemsPerPage=${itemsPerPage}`);
+ }
+
+ getAllMobilityRequests(page: number, itemsPerPage: number): any {
+  return this.http.get(`${this.baseUrl}/all?page=${page}&itemsPerPage=${itemsPerPage}`);
  }
 
  getMobilityRequestById(id: string): any {
@@ -27,5 +31,17 @@ export class MobilityRequestService {
 
  deleteMobilityRequest(id: string): any {
   return this.http.delete(`${this.baseUrl}/${id}`);
+ }
+
+ currentManagerApproval(id: string, data: any) {
+  return this.http.put(`${this.baseUrl}/${id}/current-manager-approval`, data);
+ }
+
+ managerApproval(id: string, data: any) {
+  return this.http.put(`${this.baseUrl}/${id}/manager-approval`, data);
+ }
+
+ hrApproval(id: string, data: any) {
+  return this.http.put(`${this.baseUrl}/${id}/hr-approval`, data);
  }
 }

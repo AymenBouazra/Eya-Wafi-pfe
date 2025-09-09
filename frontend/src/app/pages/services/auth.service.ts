@@ -24,4 +24,8 @@ export class AuthService {
   resetPassword(token: string, data: any) {
     return this.http.put(`${this.baseUrl}/resetPassword/` + token, data);
   }
+
+  getCurrentUser() {
+    return this.http.get(`${this.baseUrl}/currentUser`);
+  }
 }

@@ -15,6 +15,12 @@ export class AddJobComponent implements OnInit {
   isSubmitted = false;
   isLoading = false;
   skillsList: any[] = [];
+  departements: any[] = [
+    { value: 'Client Success', label: 'Client Success' },
+    { value: 'Support', label: 'Support' },
+    { value: 'Recherche et développement', label: 'Recherche et développement' },
+    { value: 'Nouvelle technologie & BI', label: 'Nouvelle technologie & BI' },
+  ];
   constructor(private jobService: JobService, private skillService: SkillService, private toast: HotToastService, private route: Router) { }
 
   ngOnInit(): void {

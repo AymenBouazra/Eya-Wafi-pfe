@@ -29,6 +29,7 @@ exports.getAllUsersPaginated = async (req, res) => {
       .select('-password')
       .populate('profile.skills.skill')
       .populate('manager')
+      .populate('applications')
       .skip(skip)
       .limit(limitNumber);
 
@@ -66,7 +67,8 @@ exports.getUserById = async (req, res) => {
     const user = await User.findById(req.params.id)
       .select('-password')
       .populate('profile.skills.skill')
-      .populate('manager');
+      .populate('manager')
+      .populate({path: 'applications', populate: {path: 'job manager'}})
 
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
@@ -187,18 +189,40 @@ exports.deleteUser = async (req, res) => {
 };
 
 exports.getCurrentUser = async (req, res) => {
-    try {
-      const user = await User.findById(req.userId)
-        .select('-password')
-        .populate('profile.skills')
-        .populate('manager')
+  try {
+    const user = await User.findById(req.userId)
+      .select('-password')
+      .populate('profile.skills')
+      .populate('manager')
+      .populate('applications')
 
-      if (!user) {
-        return res.status(404).json({ message: 'Utilisateur non trouvé' });
-      }
-      
-      res.json(user);
-    } catch (error) {
-      res.status(500).json({ error: error.message });
+    if (!user) {
+      return res.status(404).json({ message: 'Utilisateur non trouvé' });
     }
-  };
+    
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.getColaborators = async (req, res) => {
+  try{
+    const  { role } = req.params;
+    if ( role === 'employee') {
+      const userFound = await User.findById(req.userId).populate('manager');
+      const users = await User.find({ manager: userFound.manager })
+      .populate('profile.skills');
+      return res.json({ users, manager: userFound.manager });
+    }
+    if (role === 'manager') {
+      const userFound = await User.findById(req.userId);
+      const users = await User.find({ manager: userFound.manager })
+      .populate('profile.skills');
+      return res.json({ users });
+    }
+    return res.json([]);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};

@@ -1,13 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Chart from 'chart.js';
-
-// core components
-import {
-  chartOptions,
-  parseOptions,
-  chartExample1,
-  chartExample2
-} from "../../variables/charts";
+import { DashboardService } from '../services/dashboard.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,46 +8,73 @@ import {
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  stats: any = {};
+  isLoading = false;
 
-  public datasets: any;
-  public data: any;
-  public salesChart;
-  public clicked: boolean = true;
-  public clicked1: boolean = false;
+  constructor(private dashboardService: DashboardService) { }
 
   ngOnInit() {
+    this.fetchStats();
+  }
 
-    this.datasets = [
-      [0, 20, 10, 30, 15, 40, 20, 60, 60],
-      [0, 20, 5, 25, 10, 30, 15, 40, 40]
-    ];
-    this.data = this.datasets[0];
-
-
-    var chartOrders = document.getElementById('chart-orders');
-
-    parseOptions(Chart, chartOptions());
-
-
-    var ordersChart = new Chart(chartOrders, {
-      type: 'bar',
-      options: chartExample2.options,
-      data: chartExample2.data
-    });
-
-    var chartSales = document.getElementById('chart-sales');
-
-    this.salesChart = new Chart(chartSales, {
-      type: 'line',
-      options: chartExample1.options,
-      data: chartExample1.data
+  fetchStats() {
+    this.isLoading = true;
+    this.dashboardService.getDashboardstats().subscribe({
+      next: (res: any) => {
+        this.stats = res;
+        this.isLoading = false;
+        setTimeout(() => this.renderCharts(), 0); // Wait for DOM
+      },
+      error: () => { this.isLoading = false; }
     });
   }
 
+  renderCharts() {
+    // Jobs Doughnut
+    const jobsCtx = document.getElementById('jobs-doughnut') as HTMLCanvasElement;
+    if (jobsCtx) {
+      new Chart(jobsCtx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Disponibles ' + (this.stats.jobsAvailable || 0), 'Indisponibles ' + (this.stats.jobsUnavailable || 0)],
+          datasets: [{
+            data: [
+              this.stats.jobsAvailable || 0,
+              this.stats.jobsUnavailable || 0
+            ],
+            backgroundColor: ['#2dce89', '#f5365c']
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          legend: { display: true }
+        }
+      });
+    }
 
-  public updateOptions() {
-    this.salesChart.data.datasets[0].data = this.data;
-    this.salesChart.update();
+    // Mobility Pie
+    const mobilityCtx = document.getElementById('mobility-pie') as HTMLCanvasElement;
+    if (mobilityCtx) {
+      new Chart(mobilityCtx, {
+        type: 'pie',
+        data: {
+          labels: ['Acceptées ' + (this.stats.mobilityRequestsAccepted || 0), 'Rejetées ' + (this.stats.mobilityRequestsRejected || 0), 'En attente ' + (this.stats.mobilityRequestsPending || 0)],
+          datasets: [{
+            data: [
+              this.stats.mobilityRequestsAccepted || 0,
+              this.stats.mobilityRequestsRejected || 0,
+              this.stats.mobilityRequestsPending || 0
+            ],
+            backgroundColor: ['#5e72e4', '#f5365c', '#ffbb33']
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          legend: { display: true }
+        }
+      });
+    }
   }
-
 }

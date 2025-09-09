@@ -115,8 +115,8 @@ export class UserProfileComponent implements OnInit {
             this.currentUser = user;
             this.userId = user._id;
 
-            const managerValue = typeof user.manager === 'object'
-              ? user.manager._id
+            const managerValue = typeof user.manager === 'object' && user.manager?._id && user.manager
+              ? user.manager?._id
               : user.manager;
 
 

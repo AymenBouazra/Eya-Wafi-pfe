@@ -28,6 +28,9 @@ import { EditTrainingComponent } from 'src/app/pages/trainings/edit-training/edi
 import { ListTrainingComponent } from 'src/app/pages/trainings/list-training/list-training.component';
 import { JobsEmployeeListComponent } from 'src/app/pages/mobility-requests/jobs-employee-list/jobs-employee-list.component';
 import { DashboardListComponent } from 'src/app/pages/mobility-requests/dashboard-list/dashboard-list.component';
+import { ApplicationsListComponent } from 'src/app/pages/applications-list/applications-list.component';
+import { MyApplicationsComponent } from 'src/app/pages/my-applications/my-applications.component';
+import { MyTeamComponent } from 'src/app/pages/my-team/my-team.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -60,7 +63,10 @@ import { DashboardListComponent } from 'src/app/pages/mobility-requests/dashboar
     EditTrainingComponent,
     ListTrainingComponent,
     JobsEmployeeListComponent,
-    DashboardListComponent
+    DashboardListComponent,
+    ApplicationsListComponent,
+    MyApplicationsComponent,
+    MyTeamComponent
   ]
 })
 

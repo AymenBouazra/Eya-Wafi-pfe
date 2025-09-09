@@ -4,30 +4,34 @@ const mobilityRequestSchema = new mongoose.Schema({
   employee: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   job: { type: mongoose.Schema.Types.ObjectId, ref: 'Job', required: true },
   motivation: { type: String, required: true },
+  manager: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   status: { 
     type: String, 
-    enum: ['pending', 'manager_approved', 'hr_approved', 'rejected', 'completed'],
+    enum: ['pending', 'current_manager_approved',  'manager_approved', 'hr_approved', 'rejected', 'completed'],
     default: 'pending'
   },
   currentStep: {
     type: String,
-    enum: ['manager_approval', 'hr_approval', 'completed', 'rejected'],
-    default: 'manager_approval'
+    enum: [ 'current_manager_approval', 'manager_approval', 'hr_approval', 'completed', 'rejected'],
+    default: 'current_manager_approval'
   },
   departureManagerApproval: {
-    approved: Boolean,
+    approved: { type: Boolean, default: false },
     comment: String,
-    date: Date
+    date: Date,
+    manager: { type: mongoose.Schema.Types.ObjectId, ref: 'User'}
   },
-  hisManagerApproval: {
-    approved: Boolean,
+  currentManagerApproval: {
+    approved: { type: Boolean, default: false },
     comment: String,
-    date: Date
+    date: Date,
+    manager: { type: mongoose.Schema.Types.ObjectId, ref: 'User'}
   },
   hrApproval: {
-    approved: Boolean,
+    approved: { type: Boolean, default: false },
     comment: String,
-    date: Date
+    date: Date,
+    hr: { type: mongoose.Schema.Types.ObjectId, ref: 'User'}
   },
 },
 {

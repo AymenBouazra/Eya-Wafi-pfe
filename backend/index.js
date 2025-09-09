@@ -27,8 +27,9 @@ const skillRoutes = require('./app/routes/skill.routes');
 const jobRoutes = require('./app/routes/job.routes');
 const mobilityRoutes = require('./app/routes/mobility.routes');
 const trainingRoutes = require('./app/routes/training.routes');
-const reportRoutes = require('./app/routes/report.routes');
 const notificationRoutes = require('./app/routes/notification.routes');
+const dashboardRoutes = require('./app/routes/dashboard.routes');
+
 
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
@@ -36,8 +37,8 @@ app.use('/api/skills', skillRoutes);
 app.use('/api/jobs', jobRoutes);
 app.use('/api/mobility', mobilityRoutes);
 app.use('/api/trainings', trainingRoutes);
-app.use('/api/reports', reportRoutes);
 app.use('/api/notifications', notificationRoutes);
+app.use('/api/dashboard', dashboardRoutes);
 
 // Error handling middleware
 const { errorHandler, notFound } = require('./app/middlewares/error.middleware');

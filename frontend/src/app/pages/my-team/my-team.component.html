@@ -1,0 +1,74 @@
+<app-header-body title="Mes demandes de mobilité"></app-header-body>
+
+<div class="container-fluid mt--7">
+ <div class="row">
+  <div class="col">
+   <div class="card shadow">
+    <div class="card-header border-0 d-flex justify-content-between align-items-center">
+     <div class="d-flex justify-content-between">
+      <h3 class="mb-0">
+       <i class="fa fa-graduation-cap text-info text-md" aria-hidden="true"></i>
+       {{userRole === 'employee' ? 'Mes collaborateurs' : 'Mon équipe'}}
+      </h3>
+     </div>
+    </div>
+    <div class="row mt-4">
+  <div class="col-md-12" *ngIf="manager">
+    <div class="card manager-card shadow border-0">
+      <div class="card-body p-4">
+        <div class="d-flex align-items-center">
+          <div class="manager-avatar mr-3">
+            <i class="fas fa-user-tie"></i>
+          </div>
+          <div>
+            <h6 class="card-subtitle mb-1 text-muted">Mon Manager</h6>
+            <h5 class="card-title mb-0 font-weight-bold text-primary">
+              {{ manager.profile.firstName }} {{ manager.profile.lastName }}
+            </h5>
+          </div>
+        </div>
+        
+        <div class="row mt-4">
+          <div class="col-md-6">
+            <div class="manager-info">
+              <p class="mb-1"><i class="fas fa-envelope text-muted mr-2"></i> {{ manager.email  }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="row mt-4 py-4 px-3">
+     <div class="col-md-4 mb-4 gap-3" *ngFor="let user of users">
+      <div class="card h-100 shadow border-0">
+       <div class="card-body">
+        <h5 class="card-title font-weight-bold mb-2">
+         <i class="fa fa-user mr-2 text-primary"></i>
+         {{user.profile.firstName}} {{user.profile.lastName}}
+        </h5>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="manager-info">
+              <p class="mb-1"><i class="fas fa-envelope text-muted mr-2"></i> {{ user.email }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="mb-2">
+         <span class="text-muted">Compétences :</span>
+        </div>
+        <div class="d-flex flex-wrap">
+         <span *ngFor="let skill of user.profile.skills" class="badge badge-pill badge-success mr-2 mb-2 px-3 py-2">
+          {{ skill.title }}
+         </span>
+         <span *ngIf="!user.profile.skills || user.profile.skills.length === 0" class="text-muted">Aucune
+          compétence</span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</div>

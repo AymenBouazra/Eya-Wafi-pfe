@@ -15,7 +15,12 @@ export class EditJobComponent implements OnInit {
   isLoading = false;
   idJob: string;
   skills: any[] = [];
-
+  departements: any[] = [
+    { value: 'Client Success', label: 'Client Success' },
+    { value: 'Support', label: 'Support' },
+    { value: 'Recherche et développement', label: 'Recherche et développement' },
+    { value: 'Nouvelle technologie & BI', label: 'Nouvelle technologie & BI' },
+  ];
   constructor(
     private toast: HotToastService,
     private jobService: JobService,

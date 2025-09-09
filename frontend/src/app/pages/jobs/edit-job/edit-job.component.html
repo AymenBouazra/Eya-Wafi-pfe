@@ -19,13 +19,14 @@
           </div>
 
           <div class="form-group">
-            <label for="departement">Département</label>
-            <input type="text" id="departement" formControlName="departement"
-              [ngClass]="{ 'is-invalid': submitted && f.departement.errors }" class="form-control"
-              placeholder="Département">
-            <div *ngIf="submitted && f.departement.errors" class="invalid-feedback">
-              <small *ngIf="f.departement.errors.required">Le département est requis.</small>
-            </div>
+            <label>Département</label>
+
+            <select formControlName="departement" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && userForm.get('departement').errors }">
+              <option *ngFor="let departement of departements" [value]="departement.value">
+                {{ departement?.label }}
+              </option>
+            </select>
           </div>
 
           <div class="form-group">

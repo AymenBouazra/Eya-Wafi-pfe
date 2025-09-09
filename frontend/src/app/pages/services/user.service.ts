@@ -20,6 +20,11 @@ export class UserService {
   getUsers(role: string): Observable<any> {
     return this.http.get(`${this.baseUrl}?role=${role}`);
   }
+
+  getColaborators(role: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/collaborators/${role}`);
+  }
+
   getUserById(id: string) {
     return this.http.get(`${this.baseUrl}/` + id);
   }

@@ -13,6 +13,11 @@ router.get('/',
   authMiddleware.verifyToken,
   userController.getAllUsers
 );
+
+router.get('/collaborators/:role', 
+  authMiddleware.verifyToken,
+  userController.getColaborators
+);
 router.get('/me',
   authMiddleware.verifyToken, 
   roleMiddleware.checkRole(['hr', 'manager', 'employee']),

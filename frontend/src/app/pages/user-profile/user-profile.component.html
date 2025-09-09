@@ -48,21 +48,18 @@
         <div class="card-header bg-white border-0">
           <div class="row align-items-center">
             <div class="col-8">
-              <h3 class="mb-0">My account</h3>
-            </div>
-            <div class="col-4 text-right">
-              <a href="#!" class="btn btn-sm btn-primary">Settings</a>
+              <h3 class="mb-0">Mon compte</h3>
             </div>
           </div>
         </div>
         <div class="card-body">
           <form *ngIf="userForm" [formGroup]="userForm" (ngSubmit)="onSubmit()">
-            <h6 class="heading-small text-muted mb-4">User information</h6>
+            <h6 class="heading-small text-muted mb-4">Informations utilisateur</h6>
             <div class="pl-lg-4">
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" for="input-email">Email address</label>
+                    <label class="form-control-label" for="input-email">Adresse email</label>
                     <input type="email" id="input-email" class="form-control form-control-alternative" formControlName="email">
                   </div>
                 </div>
@@ -80,13 +77,13 @@
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" for="input-first-name">First name</label>
+                    <label class="form-control-label" for="input-first-name">Prénom</label>
                     <input type="text" id="input-first-name" class="form-control form-control-alternative" formControlName="firstName">
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" for="input-last-name">Last name</label>
+                    <label class="form-control-label" for="input-last-name">Nom</label>
                     <input type="text" id="input-last-name" class="form-control form-control-alternative" formControlName="lastName">
                   </div>
                 </div>
@@ -134,7 +131,7 @@
             </div>
             <hr class="my-4" />
             <!-- Skills -->
-            <h6 class="heading-small text-muted mb-4">Skills</h6>
+            <h6 class="heading-small text-muted mb-4">Compétences</h6>
             <div class="pl-lg-4">
               <ng-select [items]="skills"
                 bindLabel="title"
@@ -148,7 +145,7 @@
             </div>
             <hr class="my-4" />
             <!-- Experience -->
-            <h6 class="heading-small text-muted mb-4">Experience</h6>
+            <h6 class="heading-small text-muted mb-4">Expérience</h6>
             <div class="pl-lg-4">
               <div formArrayName="experience">
                 <div class="position-relative border border-1 p-2 mb-3 rounded bg-white" *ngFor="let exp of experienceControls; let i = index" [formGroupName]="i">

@@ -20,6 +20,7 @@ const userSchema = new mongoose.Schema({
     }]
   },
   manager: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  applications: [{ type: mongoose.Schema.Types.ObjectId, ref: 'MobilityRequest' }],
   lastLogin: Date,
 },
 {

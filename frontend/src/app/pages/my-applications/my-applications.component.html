@@ -1,0 +1,122 @@
+<app-header-body title="Mes demandes de mobilité"></app-header-body>
+
+<div class="container-fluid mt--7">
+ <div class="row">
+  <div class="col">
+   <div class="card shadow">
+    <div class="card-header border-0 d-flex justify-content-between align-items-center">
+     <div class="d-flex justify-content-between">
+      <h3 class="mb-0">
+       <i class="fa fa-graduation-cap text-info text-md" aria-hidden="true"></i>
+       Liste de mobilités
+      </h3>
+     </div>
+    </div>
+    <div class="table-responsive" style="min-height: 20svh;">
+     <table class="table align-items-center table-flush">
+      <thead class="thead-light">
+       <tr>
+        <th scope="col">Titre d'offre</th>
+        <th scope="col">Son manager</th>
+        <th scope="col">Status</th>
+        <th scope="col">Étape suivante</th>
+        <th scope="col">Actions</th>
+        <th scope="col"></th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr *ngFor="let application of applications">
+        <th scope="row">
+         <div class="media align-items-center">
+          {{application.job.title}}
+         </div>
+        </th>
+        <td>
+         <div class="align-items-center">
+          {{application.manager.profile.firstName}} {{application.manager.profile.lastName}}
+         </div>
+        </td>
+        <td>
+         <div class="align-items-center">
+          <span style="font-size: 11px;"
+           [class]="application.status === 'completed' ? 'badge badge-success' : 'badge badge-info'">
+           {{application.status === "pending" ?
+           "En attente" :
+           application.status === "completed" ?
+           "Terminé" :
+           application.status === 'manager_approved' ?
+           "Manager approuvé" :
+           application.status === 'hr_approved' ?
+           "RH approuvé" :
+           application.status === 'current_manager_approved' ?
+           "Manager actuel approuvé" :
+           'Rejeté'
+           }}
+          </span>
+         </div>
+        </td>
+        <td>
+         <div class="align-items-center">
+          <span>
+           {{application.currentStep === "manager_approval" ? "Manager" : application.currentStep ===
+           "hr_approval" ? "RH" : application.currentStep === "current_manager_approval" ? "Manager actuel" :
+           "Finalisé"}}
+          </span>
+         </div>
+        </td>
+        <td>
+         <div ngbDropdown placement="bottom-right">
+          <a class="btn btn-sm btn-icon-only text-light" ngbDropdownToggle>
+           <i class="fas fa-ellipsis-v"></i>
+          </a>
+          <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
+           <a class="dropdown-item" style="cursor: pointer;" (click)="openModal(application.motivation,application._id)">
+            <i class="fas fa-edit"></i> Modifier
+           </a>
+           <a class="dropdown-item" style="cursor: pointer;" (click)="deleteApplication(application._id)">
+            <i class="fas fa-trash-alt"></i> Supprimer
+           </a>
+          </div>
+         </div>
+        </td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+   </div>
+   <div class="card-footer py-4" *ngIf="totalItems > itemsPerPage">
+    <nav aria-label="Page navigation">
+     <ngb-pagination [collectionSize]="totalItems" [(page)]="currentPage" [pageSize]="itemsPerPage"
+      (pageChange)="onPageChange($event)" aria-label="Default pagination">
+      <ng-template ngbPaginationNumber="true" let-p> {{p}} </ng-template>
+     </ngb-pagination>
+    </nav>
+   </div>
+  </div>
+ </div>
+ <div class="modal-backdrop" *ngIf="modalShow">
+    <div class="modal fade show d-block" tabindex="-1" *ngIf="modalShow" style="background: rgba(0,0,0,0.2);">
+      <div class="modal-dialog modal-dialog-centered">
+        <form class="modal-content" (ngSubmit)="submit()">
+          <div class="modal-header">
+            <h5 class="modal-title text-primary">
+              Modifier la demande de mobilité
+            </h5>
+            <button type="button" class="close" (click)="closeModal()">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="motivationText">Lettre de motivation</label>
+              <textarea id="motivationText" [(ngModel)]="motivationText" name="motivationText" class="form-control" rows="4"
+                placeholder="Ajoutez votre lettre de motivation..." required></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-success">Confirmer</button>
+            <button type="button" class="btn btn-secondary" (click)="closeModal()">Retour</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

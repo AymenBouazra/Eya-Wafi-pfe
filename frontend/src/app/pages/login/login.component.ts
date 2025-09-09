@@ -48,8 +48,6 @@ export class LoginComponent implements OnInit {
       });
       return;
     }
-    console.log(this.loginForm.errors);
-
 
     this.authService.checkEmail(this.loginForm.value).subscribe({
       next: (v: any) => {

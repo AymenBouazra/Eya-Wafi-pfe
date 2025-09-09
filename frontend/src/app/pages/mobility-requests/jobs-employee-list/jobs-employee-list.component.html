@@ -1,6 +1,6 @@
 <app-header-body title="Gestion des offres de travail"></app-header-body>
 
-<div class="container-fluid mt--7" style="height: calc(100vh - 80px);">
+<div class="container-fluid mt--7" style="height: calc(100vh - 80px);" *ngIf="jobs || jobs.length > 0">
  <div class="row h-100">
   <!-- Sidebar: Opportunities List -->
   <div class="col-lg-4 col-12 h-100" *ngIf="!showDetails || screenWidth >= 992">
@@ -17,9 +17,9 @@
        [class.active]="selectedJob?._id === job._id" (click)="selectJob(job)" style="cursor:pointer;">
        <div class="d-flex align-items-center">
         <i class="fa fa-briefcase text-secondary mr-2"></i>
-        <span>{{ job.title }}</span>
+        <span>{{ job.title }} <span class="font-weight-bold badge badge-warning" *ngIf="employeeApplicationsList.includes(job._id)">Déjà postulé</span></span>
        </div>
-       <small class="badge badge-pill badge-info px-3 py-2">
+       <small class="badge badge-pill badge-info px-3 py-2 mt-2" [class]="{'text-white':selectedJob?._id === job._id}">
         <i class="fa fa-building mr-1"></i> {{ job.departement }}
        </small>
       </li>
@@ -34,7 +34,12 @@
     <div class="card-body">
      <ng-container *ngIf="selectedJob; else selectPrompt">
       <div class="d-flex justify-content-between align-items-center">
-       <h2 class="card-title text-primary mb-3">{{ selectedJob.title }}</h2>
+       <div class="d-flex justify-content-between align-items-center w-100">
+        <h2 class="card-title text-primary mb-3">{{ selectedJob.title }}</h2>
+        <button class="btn btn-lg btn-primary" [disabled]="employeeApplicationsList.includes(selectedJob._id)" (click)="openModal()">
+         <i class="fa fa-paper-plane mr-2"></i>{{ employeeApplicationsList.includes(selectedJob._id) ? 'Déjà postulé' : 'Postuler' }}
+        </button>
+       </div>
        <button class="btn btn-outline-secondary d-lg-none" (click)="showDetails = false">
         <i class="fa fa-arrow-left"></i> Retour
        </button>
@@ -56,8 +61,8 @@
        </div>
       </div>
       <div class="mt-4 text-right">
-       <button class="btn btn-lg btn-primary" (click)="openModal()">
-        <i class="fa fa-paper-plane mr-2"></i>Postuler
+       <button class="btn btn-lg btn-primary" [disabled]="employeeApplicationsList.includes(selectedJob._id)" (click)="openModal()">
+        <i class="fa fa-paper-plane mr-2"></i>{{ employeeApplicationsList.includes(selectedJob._id) ? 'Déjà postulé' : 'Postuler' }}
        </button>
       </div>
      </ng-container>
@@ -72,9 +77,15 @@
  </div>
 </div>
 
+<div *ngIf="!jobs || jobs.length === 0" class="container-fluid mt--7" style="height: calc(100vh - 50vh);">
+ <div class="card shadow h-100 flex justify-content-center align-items-center">
+  <span class="text-muted">Aucune offre d'emploi disponible.</span>
+ </div>
+</div>
+
 <!-- Modal -->
 <div class="modal-backdrop" *ngIf="showModal"></div>
-<div class="modal fade show d-block" tabindex="-1" *ngIf="showModal" style="background: rgba(0,0,0,0.2);">
+<div class="modal fade show d-block" tabindex="-1" *ngIf="showModal">
  <div class="modal-dialog modal-dialog-centered">
   <form [formGroup]="applyForm" (ngSubmit)="onSubmit()" class="modal-content">
    <div class="modal-header">
